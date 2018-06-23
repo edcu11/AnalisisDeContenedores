@@ -35,7 +35,7 @@ def PosicionValida(bloque, x, y):
     return False
 
 def AgregarBloque(bloque, Xinicial, Yinicial):
-    for x in range(bloque.length - 1)
+    for x in range(bloque.length - 1):
         for y in range(bloque.height - 1):
             contenedor[Xinicial + x][Yinicial + y] = \
             Block(bloque.length, bloque.height, False)
@@ -43,20 +43,20 @@ def AgregarBloque(bloque, Xinicial, Yinicial):
     contenedor [Xinicial] [Yinicial] = Block(bloque.length, bloque.height, True);
 
 
-def HayEspacioDisponible():
-    pass
+'''def HayEspacioDisponible():
+    pass'''
 
 def EncontrarPosicionDisponible(bloque):
-    for linea in contenedor.Space
+    for linea in contenedor.Space:
         for indice in linea:
-            if HayEspacioDisponible(bloque)
+            if HayEspacioDisponible(bloque):
                 return PosicionInidice(linea, indice)
     return PosicionInidice(-1, -1)
 
 
 def IntentarAgregarBloque(bloque):
     posicion = EncontrarPosicionDisponible(bloque)
-    if posicion.x == -1 || posicion.y == -1:
+    if posicion.x == -1 or posicion.y == -1:
         return false;
     AgregarBloque(bloque);
 
@@ -67,12 +67,12 @@ with open('products.json') as f:
 
 global contenedor;
 contenedor = Contenedor(10);
-blocks = ProcessBlocks(data["Blocks"])
+'''blocks = ProcessBlocks(data["Blocks"])'''
 
-for b in blocks:
-        print("Length" , b.length, ":" , b.height)
-
-pprint(contenedor);
+'''for b in blocks:
+    print("Length" , b.length, ":" , b.height)
+'''
+print(contenedor.Space[2][2]);
 
 
 
