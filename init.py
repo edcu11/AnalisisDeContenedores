@@ -11,7 +11,7 @@ class Block():
 class Contenedor():
     """docstring for Contenedor."""
     def __init__(self, dim):
-        self.dimensiones = dim;
+        self.dimensiones = dim
         self.Space = Matrix = [[0 for x in range(dim)] for y in range(1000)]
 
 class PosicionInidice():
@@ -25,7 +25,7 @@ class PosicionInidice():
 def ProcessBlocks(rawDataBlocks):
     blocks = []
     for b in rawDataBlocks:
-        blocks.append(Block(int(b["Length"]), int(b["Height"])))
+        blocks.append(Block(int(b["Length"]), int(b["Height"]),True))
     return blocks
 
 
@@ -34,13 +34,13 @@ def PosicionValida(bloque, x, y):
         return True
     return False
 
-def AgregarBloque(bloque, Xinicial, Yinicial):
+def AgregarBloque(bloque, Xinicial, Yinicial,contenedor):
     for x in range(bloque.length - 1):
         for y in range(bloque.height - 1):
             contenedor[Xinicial + x][Yinicial + y] = \
             Block(bloque.length, bloque.height, False)
 
-    contenedor [Xinicial] [Yinicial] = Block(bloque.length, bloque.height, True);
+    contenedor [Xinicial][Yinicial] = Block(bloque.length, bloque.height, True)
 
 
 '''def HayEspacioDisponible():
@@ -57,22 +57,24 @@ def EncontrarPosicionDisponible(bloque):
 def IntentarAgregarBloque(bloque):
     posicion = EncontrarPosicionDisponible(bloque)
     if posicion.x == -1 or posicion.y == -1:
-        return false;
-    AgregarBloque(bloque);
+        return false
+    AgregarBloque(bloque)
 
 
 
 with open('products.json') as f:
     data = json.load(f)
 
-global contenedor;
-contenedor = Contenedor(10);
-'''blocks = ProcessBlocks(data["Blocks"])'''
+global contenedor
+contenedor = Contenedor(10)
+blocks = ProcessBlocks(data["Blocks"])
 
-'''for b in blocks:
+for b in blocks:
     print("Length" , b.length, ":" , b.height)
-'''
-print(contenedor.Space[2][2]);
+
+AgregarBloque(blocks[0],0,0)
+
+
 
 
 
