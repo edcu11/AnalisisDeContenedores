@@ -10,17 +10,16 @@ class Block():
 
 class Contenedor():
     """docstring for Contenedor."""
-    def __init__(self, dim):
+    def __init__(self, dim,altura):
         self.dimensiones = dim
-        self.Space = Matrix = [[0 for x in range(dim)] for y in range(1000)]
+        self.altura = altura
+        self.Space = Matrix = [[0 for x in range(altura)] for y in range(dim)]
 
 class PosicionInidice():
     """docstring for PosicionInidice."""
     def __init__(self, x, y):
         self.x = x
         self.y = y
-
-
 
 def ProcessBlocks(rawDataBlocks):
     blocks = []
@@ -29,28 +28,37 @@ def ProcessBlocks(rawDataBlocks):
     return blocks
 
 
-def PosicionValida(bloque, x, y):
-    if contenedor[x][y] == None:
-        return True
-    return False
+def PosicionValida(x,y):
+    if contenedor.Space[x][y] == True:
+        return False
+    return True
 
-def AgregarBloque(bloque, Xinicial, Yinicial,contenedor):
-    for x in range(bloque.length - 1):
-        for y in range(bloque.height - 1):
-            contenedor[Xinicial + x][Yinicial + y] = \
-            Block(bloque.length, bloque.height, False)
+def AgregarBloque(bloque,Xinicial,Yinicial):
+    for y in range(Yinicial,Yinicial + bloque.height):
+        for x in range(Xinicial,Yinicial + bloque.length):
+            contenedor.Space[x][y] = Block(bloque.length, bloque.height, False)
 
-    contenedor [Xinicial][Yinicial] = Block(bloque.length, bloque.height, True)
+    contenedor.Space[Xinicial][Yinicial] = Block(bloque.length, bloque.height, True)
+    print('Agregado En:',Xinicial,',',Yinicial)
 
 
-'''def HayEspacioDisponible():
-    pass'''
+def HayEspacioDisponible(bloque,indice,linea):
+    for y in range(linea,linea + bloque.height):
+        for x in range(indice,indice + bloque.length):
+            print(x,y)
+            if x == 10:
+                return False
+            if PosicionValida(x,y) == False:
+                return False
+    
+    return True
 
 def EncontrarPosicionDisponible(bloque):
-    for linea in contenedor.Space:
-        for indice in linea:
-            if HayEspacioDisponible(bloque):
-                return PosicionInidice(linea, indice)
+    for y in range(0,contenedor.altura):
+        for x in range(0,contenedor.dimensiones):
+            if HayEspacioDisponible(bloque,x,y):
+                return PosicionInidice(x, y)
+
     return PosicionInidice(-1, -1)
 
 
@@ -58,7 +66,7 @@ def IntentarAgregarBloque(bloque):
     posicion = EncontrarPosicionDisponible(bloque)
     if posicion.x == -1 or posicion.y == -1:
         return false
-    AgregarBloque(bloque)
+    AgregarBloque(bloque,posicion.x,posicion.y)
 
 def CantHuecos(self):
     cant = 0
@@ -72,18 +80,15 @@ with open('products.json') as f:
     data = json.load(f)
 
 global contenedor
-contenedor = Contenedor(10)
+contenedor = Contenedor(11,1000)
 blocks = ProcessBlocks(data["Blocks"])
 
-for b in blocks:
-    print("Length" , b.length, ":" , b.height)
-
 AgregarBloque(blocks[0],0,0)
+#AgregarBloque(blocks[1],6,0)
+#IntentarAgregarBloque(blocks[2])
+#IntentarAgregarBloque(blocks[3])
 
-
-
-
-
-#print(data["maps"][1]["id"])  # will return 'blabla'
-#print(data["masks"]["id"])    # will return 'valore'
-#print(data["om_points"])      # will return 'value'
+#print ('Length:',contenedor.Space[5][2].length,'Height:',contenedor.Space[5][2].height)
+#print ('Length:',contenedor.Space[0][0].length,'Height:',contenedor.Space[0][0].height)
+ 
+HayEspacioDisponible(blocks[0],1,5)
