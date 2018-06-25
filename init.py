@@ -60,7 +60,13 @@ def IntentarAgregarBloque(bloque):
         return false
     AgregarBloque(bloque)
 
-
+def CantHuecos(self):
+    cant = 0
+    for x in range(contenedor.dimensiones):
+        for y in range(1000):
+            if(contenedor[x][y] == None):
+                cant+=1
+    return cant
 
 with open('products.json') as f:
     data = json.load(f)
