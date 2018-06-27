@@ -1,19 +1,21 @@
 import json
 from pprint import pprint
 
+
 class Block():
     """docstring for Block."""
     def __init__(self, length, height, initial):
         self.length = length
         self.height = height
         self.IsInitial = initial
+        self.IsValid = True
 
 class Contenedor():
     """docstring for Contenedor."""
     def __init__(self, dim,altura):
         self.dimensiones = dim
         self.altura = altura
-        self.Space = Matrix = [[0 for x in range(altura)] for y in range(dim)]
+        self.Space = Matrix = [[None for x in range(altura)] for y in range(dim)]
 
 class PosicionInidice():
     """docstring for PosicionInidice."""
@@ -27,30 +29,28 @@ def ProcessBlocks(rawDataBlocks):
         blocks.append(Block(int(b["Length"]), int(b["Height"]),True))
     return blocks
 
-
 def PosicionValida(x,y):
-    if contenedor.Space[x][y] == True:
-        return False
-    return True
+    if contenedor.Space[x][y] == None:
+        return True
+    return False
 
 def AgregarBloque(bloque,Xinicial,Yinicial):
     for y in range(Yinicial,Yinicial + bloque.height):
         for x in range(Xinicial,Yinicial + bloque.length):
             contenedor.Space[x][y] = Block(bloque.length, bloque.height, False)
+            print('Agregando En:',x,',',y)
 
     contenedor.Space[Xinicial][Yinicial] = Block(bloque.length, bloque.height, True)
-    print('Agregado En:',Xinicial,',',Yinicial)
-
+    
 
 def HayEspacioDisponible(bloque,indice,linea):
     for y in range(linea,linea + bloque.height):
         for x in range(indice,indice + bloque.length):
             print(x,y)
-            if x == 10:
+            if x > 9:
                 return False
             if PosicionValida(x,y) == False:
-                return False
-    
+                return False   
     return True
 
 def EncontrarPosicionDisponible(bloque):
@@ -60,7 +60,6 @@ def EncontrarPosicionDisponible(bloque):
                 return PosicionInidice(x, y)
 
     return PosicionInidice(-1, -1)
-
 
 def IntentarAgregarBloque(bloque):
     posicion = EncontrarPosicionDisponible(bloque)
@@ -80,15 +79,20 @@ with open('products.json') as f:
     data = json.load(f)
 
 global contenedor
-contenedor = Contenedor(11,1000)
+contenedor = Contenedor(10,1000)
 blocks = ProcessBlocks(data["Blocks"])
 
-AgregarBloque(blocks[0],0,0)
+#AgregarBloque(blocks[0],0,0)
 #AgregarBloque(blocks[1],6,0)
-#IntentarAgregarBloque(blocks[2])
-#IntentarAgregarBloque(blocks[3])
 
-#print ('Length:',contenedor.Space[5][2].length,'Height:',contenedor.Space[5][2].height)
+IntentarAgregarBloque(blocks[0])
+#IntentarAgregarBloque(blocks[1])
+IntentarAgregarBloque(blocks[2])
+IntentarAgregarBloque(blocks[4])
+IntentarAgregarBloque(blocks[5])
+
+#print ('Length:',contenedor.Space[6][0].length,'Height:',contenedor.Space[6][0].height)
 #print ('Length:',contenedor.Space[0][0].length,'Height:',contenedor.Space[0][0].height)
  
-HayEspacioDisponible(blocks[0],1,5)
+
+
