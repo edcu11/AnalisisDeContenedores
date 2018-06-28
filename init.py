@@ -9,6 +9,10 @@ class Block():
         self.height = height
         self.IsInitial = initial
         self.IsValid = True
+    def GetIsInitial(self):
+        if self.IsInitial:
+            return "T"
+        return "F"
 
 class Contenedor():
     """docstring for Contenedor."""
@@ -41,7 +45,7 @@ def AgregarBloque(bloque,Xinicial,Yinicial):
             print('Agregando En:',x,',',y)
 
     contenedor.Space[Xinicial][Yinicial] = Block(bloque.length, bloque.height, True)
-    
+
 
 def HayEspacioDisponible(bloque,indice,linea):
     for y in range(linea,linea + bloque.height):
@@ -50,7 +54,7 @@ def HayEspacioDisponible(bloque,indice,linea):
             if x > 9:
                 return False
             if PosicionValida(x,y) == False:
-                return False   
+                return False
     return True
 
 def EncontrarPosicionDisponible(bloque):
@@ -67,13 +71,25 @@ def IntentarAgregarBloque(bloque):
         return false
     AgregarBloque(bloque,posicion.x,posicion.y)
 
-def CantHuecos(self):
+def CantHuecos():
     cant = 0
-    for x in range(contenedor.dimensiones):
-        for y in range(1000):
+    for y in range(contenedor.altura):
+        for x in range(contenedor.dimensiones):
             if(contenedor[x][y] == None):
                 cant+=1
+            elif contenedor[x][y].IsInitial:
+                x += contenedor[x][y].length
     return cant
+
+def PrintContenedor(reach):
+    for y in range(reach):
+        for x in range(contenedor.dimensiones):
+            if contenedor.Space[x][y] == None:
+                print( "(", x, ",", y ,")=[empty]/", end='')
+                continue
+            print( "(", x, ",", y ,")=[", contenedor.Space[x][y].length, ":", contenedor.Space[x][y].height ,":", contenedor.Space[x][y].GetIsInitial(), "]/ ", end='')
+        print("\n")
+
 
 with open('products.json') as f:
     data = json.load(f)
@@ -86,13 +102,10 @@ blocks = ProcessBlocks(data["Blocks"])
 #AgregarBloque(blocks[1],6,0)
 
 IntentarAgregarBloque(blocks[0])
-#IntentarAgregarBloque(blocks[1])
-IntentarAgregarBloque(blocks[2])
 IntentarAgregarBloque(blocks[4])
-IntentarAgregarBloque(blocks[5])
+
+
+PrintContenedor(20)
 
 #print ('Length:',contenedor.Space[6][0].length,'Height:',contenedor.Space[6][0].height)
 #print ('Length:',contenedor.Space[0][0].length,'Height:',contenedor.Space[0][0].height)
- 
-
-
