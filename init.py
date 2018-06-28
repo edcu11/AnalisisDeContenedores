@@ -42,6 +42,10 @@ def AgregarBloque(bloque,Xinicial,Yinicial):
     for y in range(Yinicial,Yinicial + bloque.height):
         for x in range(Xinicial,Xinicial + bloque.length):
             contenedor.Space[x][y] = Block(bloque.length, bloque.height, False)
+<<<<<<< HEAD
+=======
+            #print('Agregando En:',x,',',y)
+>>>>>>> 4b4664a7e7a224cce896a42084577993d4b0d148
 
     contenedor.Space[Xinicial][Yinicial] = Block(bloque.length, bloque.height, True)
 
@@ -49,6 +53,10 @@ def AgregarBloque(bloque,Xinicial,Yinicial):
 def HayEspacioDisponible(bloque,indice,linea):
     for y in range(linea,linea + bloque.height):
         for x in range(indice,indice + bloque.length):
+<<<<<<< HEAD
+=======
+            #print(x,y)
+>>>>>>> 4b4664a7e7a224cce896a42084577993d4b0d148
             if x > 9:
                 GirarBloque(bloque)
                 for y in range(linea,linea + bloque.height):
@@ -115,6 +123,7 @@ global contenedor
 contenedor = Contenedor(10,15000)
 blocks = ProcessBlocks(data["Blocks"])
 
+<<<<<<< HEAD
 for x in range(len(blocks)):
     IntentarAgregarBloque(blocks[x])
 
@@ -122,3 +131,14 @@ for x in range(len(blocks)):
 print (len(blocks))
 PrintContenedor(15000)
 
+=======
+
+
+for x in range(30):
+    IntentarAgregarBloque(blocks[x])
+
+
+PrintContenedor(50)
+
+
+>>>>>>> 4b4664a7e7a224cce896a42084577993d4b0d148
