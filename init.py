@@ -52,9 +52,21 @@ def HayEspacioDisponible(bloque,indice,linea):
         for x in range(indice,indice + bloque.length):
             print(x,y)
             if x > 9:
-                return False
+                GirarBloque(bloque)
+                for y in range(linea,linea + bloque.height):
+                    for x in range(indice,indice + bloque.length):
+                        if x > 9: 
+                            return False
+                        if PosicionValida(x,y) == False:
+                            return False
             if PosicionValida(x,y) == False:
-                return False
+                GirarBloque(bloque)
+                for y in range(linea,linea + bloque.height):
+                    for x in range(indice,indice + bloque.length):
+                        if x > 9:
+                            return False
+                        if PosicionValida(x,y) == False:
+                            return False
     return True
 
 def EncontrarPosicionDisponible(bloque):
@@ -80,6 +92,13 @@ def CantHuecos():
             elif contenedor[x][y].IsInitial:
                 x += contenedor[x][y].length
     return cant
+
+def GirarBloque(bloque):
+    temp2 = bloque.length
+    temp = bloque.height
+    bloque.length = temp
+    bloque.height = temp2
+    return bloque
 
 def PrintContenedor(reach):
     for y in range(reach):
