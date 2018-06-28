@@ -40,9 +40,9 @@ def PosicionValida(x,y):
 
 def AgregarBloque(bloque,Xinicial,Yinicial):
     for y in range(Yinicial,Yinicial + bloque.height):
-        for x in range(Xinicial,Yinicial + bloque.length):
+        for x in range(Xinicial,Xinicial + bloque.length):
             contenedor.Space[x][y] = Block(bloque.length, bloque.height, False)
-            print('Agregando En:',x,',',y)
+            #print('Agregando En:',x,',',y)
 
     contenedor.Space[Xinicial][Yinicial] = Block(bloque.length, bloque.height, True)
 
@@ -50,7 +50,7 @@ def AgregarBloque(bloque,Xinicial,Yinicial):
 def HayEspacioDisponible(bloque,indice,linea):
     for y in range(linea,linea + bloque.height):
         for x in range(indice,indice + bloque.length):
-            print(x,y)
+            #print(x,y)
             if x > 9:
                 GirarBloque(bloque)
                 for y in range(linea,linea + bloque.height):
@@ -117,14 +117,12 @@ global contenedor
 contenedor = Contenedor(10,1000)
 blocks = ProcessBlocks(data["Blocks"])
 
-#AgregarBloque(blocks[0],0,0)
-#AgregarBloque(blocks[1],6,0)
-
-IntentarAgregarBloque(blocks[0])
-IntentarAgregarBloque(blocks[4])
 
 
-PrintContenedor(20)
+for x in range(30):
+    IntentarAgregarBloque(blocks[x])
 
-#print ('Length:',contenedor.Space[6][0].length,'Height:',contenedor.Space[6][0].height)
-#print ('Length:',contenedor.Space[0][0].length,'Height:',contenedor.Space[0][0].height)
+
+PrintContenedor(50)
+
+
